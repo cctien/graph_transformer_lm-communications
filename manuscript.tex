@@ -1,0 +1,94 @@
+\documentclass{article}
+
+% if you need to pass options to natbib, use, e.g.:
+%     \PassOptionsToPackage{numbers, compress}{natbib}
+% before loading neurips_2025
+
+% ready for submission
+% \usepackage{sty/neurips_2025}
+
+% to compile a preprint version, e.g., for submission to arXiv, add add the
+% [preprint] option:
+\usepackage[preprint]{sty/neurips_2025}
+
+% to compile a camera-ready version, add the [final] option, e.g.:
+%     \usepackage[final]{neurips_2025}
+
+% to avoid loading the natbib package, add option nonatbib:
+%    \usepackage[nonatbib]{neurips_2025}
+
+\usepackage[utf8]{inputenc} % allow utf-8 input
+\usepackage[T1]{fontenc}    % use 8-bit T1 fonts
+\usepackage{hyperref}       % hyperlinks
+\usepackage{url}            % simple URL typesetting
+\usepackage{booktabs}       % professional-quality tables
+\usepackage{amsfonts}       % blackboard math symbols
+\usepackage{nicefrac}       % compact symbols for 1/2, etc.
+\usepackage{microtype}      % microtypography
+\usepackage{xcolor}         % colors
+
+\usepackage{todonotes}
+
+\title{GTLM: Graph Transformer Language model for conditional subgraph generation}
+
+% Using \And between authors leaves it to LaTeX to determine where to break the
+% lines. Using \AND forces a line break at that point. So, if LaTeX puts 3 of 4
+% authors names on the first line, and the last on the second line, try using
+% \AND instead of \And before the third author name.
+
+\author{%
+  %   David S.~Hippocampus\thanks{Use footnote for providing further information
+  %     about author (webpage, alternative address)} \\
+  %   Department of Computer Science \\
+  %   Cranberry-Lemon University \\ Pittsburgh, PA 15213 \\
+  %   \texttt{hippo@cs.cranberry-lemon.edu} \\
+  % \And
+  % Coauthor \\
+  % Affiliation \\
+  % Address \\
+  % \texttt{email} \\
+  % \AND
+  % Coauthor \\
+  % Affiliation \\
+  % Address \\
+  % \texttt{email} \\
+  % \And
+  % Coauthor \\
+  % Affiliation \\
+  % Address \\
+  % \texttt{email} \\
+  % \And
+  % Coauthor \\
+  % Affiliation \\
+  % Address \\
+  % \texttt{email} \\
+}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+\end{abstract}
+
+\section{Introduction}
+
+Graph node classification and linkage/edge prediction are two important tasks with key applications on graph-structured data.  In particular, a linkage prediction graph neural network has important application of gene regulatory networks (GRN) inference. Recently, there has been work which cast both problems into a single generative framework.  The current approach, however, is limited as the linearizing algorithm for autoregressive generation is stringent and does not allow for conditioning of partial information of a vertex or an edge (e.g., predicting the type or existence of an edge from its incidence of vertices).
+
+We plan to explore a generative training approach with more flexible linear order of decoding from a partial graph, along with a special masking scheme during training to maximize representation learning and generative capacity.  Specifically, given a graph, we represent "true" vertices and edges as unmasked tokens in some random order with some constraints (e.g, no edges are placed before their incident vertices), with a triangular attention mask such that tokens can only attend to itself and the previous ones.  The fully or partially masked tokens, or "target" tokens, of the same ordering are concatenated at the end of this "true" sequence. Importantly, the attention mask for the "target" tokens is again triangular with respect to either the "true" tokens or the "target" tokens.  The attention masking and training scheme ensures the model can learn to generate under diverse scenarios and conditioning. We plan to evaluate the model on standard graph generation benchmark, as well as the more niche task of GRN inference.
+
+\section*{References}
+\medskip
+{
+  \small
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\appendix
+
+\section{Technical Appendices and Supplementary Material}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}
